@@ -1,0 +1,154 @@
+
+USE supermarket;
+GO
+
+-- Insert roles
+SET IDENTITY_INSERT [roles] ON;
+INSERT INTO [roles] ([id], [name]) VALUES
+    (1, 'ADMIN'),
+    (2, 'MANAGER'),
+    (3, 'CASHIER');
+SET IDENTITY_INSERT [roles] OFF;
+GO
+
+-- Insert discounts
+SET IDENTITY_INSERT [discounts] ON;
+INSERT INTO [discounts] ([id], [name], [percent], [min_order_amount], [start_date], [end_date], [created_at], [updated_at]) VALUES
+    (1, 'Holiday 5',    5.00,  100000.00, '2026-01-01', '2026-12-31', '2026-01-01 00:00:00', '2026-03-01 08:00:00'),
+    (2, 'Weekend 10',  10.00,  200000.00, '2026-01-01', '2026-12-31', '2026-01-01 00:00:00', '2026-03-01 08:05:00'),
+    (3, 'New Member 3', 3.00,   50000.00, '2026-01-01', '2026-12-31', '2026-01-01 00:00:00', '2026-03-01 08:10:00'),
+    (4, 'Big Sale 15', 15.00,  500000.00, '2026-01-01', '2026-12-31', '2026-01-01 00:00:00', '2026-03-01 08:15:00'),
+    (5, 'Lucky Day 7',  7.00,  150000.00, '2026-01-01', '2026-12-31', '2026-01-01 00:00:00', '2026-03-01 08:20:00');
+SET IDENTITY_INSERT [discounts] OFF;
+GO
+
+-- Insert suppliers
+SET IDENTITY_INSERT [suppliers] ON;
+INSERT INTO [suppliers] ([id], [supplier_name], [company_name], [email], [phone], [address], [status], [created_at], [updated_at]) VALUES
+    (1, 'Fresh Farm',   'Fresh Farm Co',    'contact@freshfarm.com', '0281111111', '12 Green St',  'active',   '2026-01-05 09:00:00', '2026-03-01 10:00:00'),
+    (2, 'Daily Food',   'Daily Food Ltd',   'sales@dailyfood.com',   '0282222222', '34 Market St', 'active',   '2026-01-06 09:00:00', '2026-03-01 10:05:00'),
+    (3, 'Best Drink',   'Best Drink Inc',   'hello@bestdrink.com',   '0283333333', '56 River St',  'active',   '2026-01-07 09:00:00', '2026-03-01 10:10:00'),
+    (4, 'Office Goods', 'Office Goods JSC', 'team@officegoods.com',  '0284444444', '78 Lake St',   'deactive', '2026-01-08 09:00:00', '2026-03-01 10:15:00'),
+    (5, 'Snack Hub',    'Snack Hub Co',     'info@snackhub.com',     '0285555555', '90 Sun St',    'active',   '2026-01-09 09:00:00', '2026-03-01 10:20:00');
+SET IDENTITY_INSERT [suppliers] OFF;
+GO
+
+-- Insert categories
+SET IDENTITY_INSERT [categories] ON;
+INSERT INTO [categories] ([id], [name], [status], [created_at], [updated_at]) VALUES
+    (1, 'Beverages',  'active', '2026-01-10 09:00:00', '2026-03-01 11:00:00'),
+    (2, 'Food',       'active', '2026-01-10 09:05:00', '2026-03-01 11:05:00'),
+    (3, 'Dairy',      'active', '2026-01-10 09:10:00', '2026-03-01 11:10:00'),
+    (4, 'Stationery', 'active', '2026-01-10 09:15:00', '2026-03-01 11:15:00'),
+    (5, 'Snacks',     'active', '2026-01-10 09:20:00', '2026-03-01 11:20:00');
+SET IDENTITY_INSERT [categories] OFF;
+GO
+
+-- Insert sales_point
+SET IDENTITY_INSERT [sales_point] ON;
+INSERT INTO [sales_point] ([id], [name], [address], [phone], [is_active]) VALUES
+    (1, 'Store One',   '101 Main St',             '0286666661', 1),
+    (2, 'Store Two',   '102 Main St',             '0286666662', 1),
+    (3, 'Store Three', '103 Main St',             '0286666663', 1),
+    (4, 'Counter A',   '101 Main St - Counter A', '0286666664', 1),
+    (5, 'Counter B',   '101 Main St - Counter B', '0286666665', 0);
+SET IDENTITY_INSERT [sales_point] OFF;
+GO
+
+-- Insert users (depends on roles)
+SET IDENTITY_INSERT [users] ON;
+INSERT INTO [users] ([id], [username], [password_hash], [fullname], [email], [role_id], [id_card], [status], [avatar], [last_login], [created_at], [updated_at]) VALUES
+    (1, 'admin01',   '$2b$10$3IeAXThdO4cx2s/i98bMUup.wWgpC59R8CyU6VbqKQr4YX8m6AVKa', 'Admin One',   'admin01@supermarket.com',   1, 'ID100001', 'active', 'https://img.local/admin01.png',   '2026-03-12 08:00:00', '2026-03-01 09:00:00', '2026-03-12 08:00:00'),
+    (2, 'manager01', '$2b$10$Y2Hk44c1oe/Ilnmu8tc8YeuUdiE4xyil7w4erM22nPf/eFgjPk3ry', 'Manager One', 'manager01@supermarket.com', 2, 'ID100002', 'active', 'https://img.local/manager01.png', '2026-03-12 08:10:00', '2026-03-01 09:05:00', '2026-03-12 08:10:00'),
+    (3, 'cashier01', '$2b$10$Tr4V2Gv3IWpQHLIC1XOAUuBERo1M3ngwb.E7jqu.KY32YdQ71BgBu', 'Cashier One', 'cashier01@supermarket.com', 3, 'ID100003', 'active', 'https://img.local/cashier01.png', '2026-03-12 08:20:00', '2026-03-01 09:10:00', '2026-03-12 08:20:00'),
+    (4, 'cashier02', '$2b$10$liGc6O5gtJXdpBXtH9V6ke/r5UYKFijbW2K713sWht6EaACIZrIw.', 'Cashier Two', 'cashier02@supermarket.com', 3, 'ID100004', 'active', 'https://img.local/cashier02.png', '2026-03-12 08:30:00', '2026-03-01 09:15:00', '2026-03-12 08:30:00');
+SET IDENTITY_INSERT [users] OFF;
+GO
+
+-- Insert customers (depends on discounts)
+SET IDENTITY_INSERT [customers] ON;
+INSERT INTO [customers] ([id], [name], [phone], [points], [total_purchases], [total_amount], [discount_id], [created_at], [updated_at]) VALUES
+    (1, 'Nguyen Van A', '0900000001', 120, 10, 2500000.00, 1,    '2026-02-01 10:00:00', '2026-03-10 09:00:00'),
+    (2, 'Tran Thi B',   '0900000002',  80,  6, 1400000.00, 2,    '2026-02-02 10:00:00', '2026-03-10 09:05:00'),
+    (3, 'Le Van C',     '0900000003',  20,  2,  300000.00, NULL, '2026-02-03 10:00:00', '2026-03-10 09:10:00'),
+    (4, 'Pham Thi D',   '0900000004',  60,  4,  900000.00, 3,    '2026-02-04 10:00:00', '2026-03-10 09:15:00'),
+    (5, 'Do Van E',     '0900000005',   0,  0,       0.00, NULL, '2026-02-05 10:00:00', '2026-03-10 09:20:00');
+SET IDENTITY_INSERT [customers] OFF;
+GO
+
+-- Insert vouchers (depends on discounts)
+SET IDENTITY_INSERT [vouchers] ON;
+INSERT INTO [vouchers] ([id], [code], [discount_id], [percent], [fixed_amount], [min_order_amount], [valid_from], [valid_to], [usage_limit], [used_count], [status], [created_at], [updated_at]) VALUES
+    (1, 'SAVE5',    1,    NULL, NULL,     100000.00, '2026-03-01', '2026-12-31', 1000, 120, 'active', '2026-03-01 09:00:00', '2026-03-10 10:00:00'),
+    (2, 'SAVE10',   2,    NULL, NULL,     200000.00, '2026-03-01', '2026-12-31',  500,  80, 'active', '2026-03-01 09:05:00', '2026-03-10 10:05:00'),
+    (3, 'FIX20000', NULL, NULL, 20000.00, 150000.00, '2026-03-01', '2026-12-31',  300,  25, 'active', '2026-03-01 09:10:00', '2026-03-10 10:10:00'),
+    (4, 'NEW3',     3,    NULL, NULL,      50000.00, '2026-03-01', '2026-12-31', 1000,  10, 'active', '2026-03-01 09:15:00', '2026-03-10 10:15:00'),
+    (5, 'OFF5000',  NULL, NULL,  5000.00,  50000.00, '2026-03-01', '2026-12-31', NULL,   5, 'active', '2026-03-01 09:20:00', '2026-03-10 10:20:00');
+SET IDENTITY_INSERT [vouchers] OFF;
+GO
+
+-- Insert products (depends on suppliers, categories)
+SET IDENTITY_INSERT [products] ON;
+INSERT INTO [products] ([id], [barcode], [product_name], [product_batch], [description], [cost_price], [selling_price], [qty_cartons], [in_stock], [supplier_id], [category_id], [mft_date], [expiry_date], [status], [image_url], [created_at], [updated_at]) VALUES
+    (1, '893000000001', 'Coca Cola 330ml', 'BATCH-COKE-01',   'Can drink',       7000.00, 10000.00, 20, 240, 3, 1, '2026-01-01', '2027-01-01', 'In Stock', 'https://img.local/products/coke.png',     '2026-01-15 08:00:00', '2026-03-05 08:00:00'),
+    (2, '893000000002', 'Instant Noodles', 'BATCH-NOODLE-01', 'Pack of noodles', 3500.00,  5000.00, 30, 360, 2, 2, '2026-01-10', '2026-12-31', 'In Stock', 'https://img.local/products/noodle.png',   '2026-01-15 08:10:00', '2026-03-05 08:10:00'),
+    (3, '893000000003', 'Fresh Milk 1L',   'BATCH-MILK-01',   'Milk box',       22000.00, 28000.00, 10, 120, 1, 3, '2026-02-01', '2026-08-01', 'In Stock', 'https://img.local/products/milk.png',     '2026-01-15 08:20:00', '2026-03-05 08:20:00'),
+    (4, '893000000004', 'Notebook A5',     'BATCH-NOTE-01',   'Paper notebook', 12000.00, 18000.00, 15, 150, 4, 4, '2026-01-05', '2028-01-05', 'In Stock', 'https://img.local/products/notebook.png', '2026-01-15 08:30:00', '2026-03-05 08:30:00'),
+    (5, '893000000005', 'Potato Chips',    'BATCH-CHIP-01',   'Snack bag',       8000.00, 12000.00, 25, 300, 5, 5, '2026-02-15', '2026-09-15', 'In Stock', 'https://img.local/products/chips.png',    '2026-01-15 08:40:00', '2026-03-05 08:40:00');
+SET IDENTITY_INSERT [products] OFF;
+GO
+
+-- Insert shifts (depends on users)
+SET IDENTITY_INSERT [shifts] ON;
+INSERT INTO [shifts] ([id], [user_id], [sales_point], [open_time], [close_time], [initial_cash], [total_cash_end], [status], [created_at], [updated_at]) VALUES
+    (1, 3, 'Store One',   '2026-03-12 07:00:00', '2026-03-12 15:00:00', 500000.00, 2300000.00, 'closed', '2026-03-12 06:50:00', '2026-03-12 15:05:00'),
+    (2, 4, 'Store Two',   '2026-03-12 07:30:00', '2026-03-12 15:30:00', 400000.00, 1800000.00, 'closed', '2026-03-12 07:20:00', '2026-03-12 15:35:00'),
+    (3, 3, 'Counter A',   '2026-03-13 07:00:00', NULL,                  300000.00, NULL,        'open',   '2026-03-13 06:50:00', '2026-03-13 07:00:00'),
+    (4, 4, 'Counter B',   '2026-03-13 07:30:00', NULL,                  350000.00, NULL,        'open',   '2026-03-13 07:20:00', '2026-03-13 07:30:00'),
+    (5, 3, 'Store Three', '2026-03-11 08:00:00', '2026-03-11 16:00:00', 450000.00, 2100000.00, 'closed', '2026-03-11 07:50:00', '2026-03-11 16:05:00');
+SET IDENTITY_INSERT [shifts] OFF;
+GO
+
+-- Insert orders (depends on customers, users, discounts, vouchers, shifts)
+SET IDENTITY_INSERT [orders] ON;
+INSERT INTO [orders] ([id], [order_no], [customer_id], [customer_phone], [customer_name], [cashier_id], [sales_point], [shift_id], [order_date], [order_time], [subtotal], [discount_id], [voucher_id], [discount_percent], [discount_amount], [total_payable], [paid], [balance], [payment_method], [status], [pay_due_date], [created_at], [updated_at]) VALUES
+    (1, 'ORD-0001', 1,    '0900000001', 'Nguyen Van A', 3, 'Store One',   1, '2026-03-12', '09:10:00', 100000.00, 1,    1,     5.00,  5000.00,  95000.00,  95000.00,      0.00, 'Cash',     'Paid',    NULL,         '2026-03-12 09:10:00', '2026-03-12 09:10:00'),
+    (2, 'ORD-0002', 2,    '0900000002', 'Tran Thi B',   3, 'Store One',   1, '2026-03-12', '10:20:00', 250000.00, 2,    2,    10.00, 25000.00, 225000.00, 200000.00,  25000.00, 'Transfer', 'Pending', '2026-03-20', '2026-03-12 10:20:00', '2026-03-12 10:20:00'),
+    (3, 'ORD-0003', NULL, NULL,         'Guest',        4, 'Store Two',   2, '2026-03-12', '11:30:00', 120000.00, NULL, 5,     0.00,  5000.00, 115000.00, 115000.00,      0.00, 'Card',     'Paid',    NULL,         '2026-03-12 11:30:00', '2026-03-12 11:30:00'),
+    (4, 'ORD-0004', 4,    '0900000004', 'Pham Thi D',   4, 'Store Two',   2, '2026-03-12', '14:00:00', 600000.00, 4,    NULL, 15.00, 90000.00, 510000.00, 300000.00, 210000.00, 'POS',      'Pending', '2026-03-25', '2026-03-12 14:00:00', '2026-03-12 14:00:00'),
+    (5, 'ORD-0005', 3,    '0900000003', 'Le Van C',     3, 'Store Three', 5, '2026-03-11', '15:40:00', 180000.00, 3,    4,     3.00,  5400.00, 174600.00, 174600.00,      0.00, 'Cash',     'Paid',    NULL,         '2026-03-11 15:40:00', '2026-03-11 15:40:00');
+SET IDENTITY_INSERT [orders] OFF;
+GO
+
+-- Insert order_items (depends on orders, products)
+SET IDENTITY_INSERT [order_items] ON;
+INSERT INTO [order_items] ([id], [order_id], [product_id], [product_name], [unit_price], [qty], [amount]) VALUES
+    (1, 1, 1, 'Coca Cola 330ml', 10000.00, 10, 100000.00),
+    (2, 2, 3, 'Fresh Milk 1L',   28000.00,  5, 140000.00),
+    (3, 3, 5, 'Potato Chips',    12000.00, 10, 120000.00),
+    (4, 4, 4, 'Notebook A5',     18000.00, 20, 360000.00),
+    (5, 5, 2, 'Instant Noodles',  5000.00, 36, 180000.00);
+SET IDENTITY_INSERT [order_items] OFF;
+GO
+
+-- Insert refresh_tokens (depends on users)
+-- LUU Y: bo dong user_id=5 vi bang users chi co 4 user (id 1-4).
+SET IDENTITY_INSERT [refresh_tokens] ON;
+INSERT INTO [refresh_tokens] ([id], [user_id], [token], [expires_at]) VALUES
+    (1, 1, 'rt_admin_0001',     '2026-04-01 00:00:00'),
+    (2, 2, 'rt_manager_0001',   '2026-04-01 00:00:00'),
+    (3, 3, 'rt_cashier01_0001', '2026-04-01 00:00:00'),
+    (4, 4, 'rt_cashier02_0001', '2026-04-01 00:00:00');
+SET IDENTITY_INSERT [refresh_tokens] OFF;
+GO
+
+-- Insert password_reset_tokens (depends on users)
+-- LUU Y: bo dong user_id=5 vi bang users chi co 4 user (id 1-4).
+SET IDENTITY_INSERT [password_reset_tokens] ON;
+INSERT INTO [password_reset_tokens] ([id], [user_id], [token], [otp], [expires_at]) VALUES
+    (1, 1, 'prt_admin_0001',     '111111', '2026-03-13 00:00:00'),
+    (2, 2, 'prt_manager_0001',   '222222', '2026-03-13 00:00:00'),
+    (3, 3, 'prt_cashier01_0001', '333333', '2026-03-13 00:00:00'),
+    (4, 4, 'prt_cashier02_0001', '444444', '2026-03-13 00:00:00');
+SET IDENTITY_INSERT [password_reset_tokens] OFF;
+GO
